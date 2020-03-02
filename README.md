@@ -1,0 +1,2 @@
+# Figury
+Prosta hierarchaia klas

@@ -27,6 +27,8 @@ namespace ConsoleAppFigury
             try
             {
                 t1.A = -1;
+                t1.B = -2;
+                t1.C = -3;
             }
             catch(ArgumentOutOfRangeException)
             {
@@ -37,8 +39,11 @@ namespace ConsoleAppFigury
             Console.WriteLine(t1.Pole); 
 
             Console.WriteLine("=========================");
-            var t2 = new Trojkat(-1, 2, 1);
-            Console.WriteLine(t2.A); 
+            var t2 = new Trojkat(3, 4, 5);
+            Console.WriteLine(t2);
+            Console.WriteLine(t2.B);
+            t2.B = 100;
+            Console.WriteLine(t2);
              
              
         }

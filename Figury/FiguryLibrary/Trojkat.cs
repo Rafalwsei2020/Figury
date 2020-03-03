@@ -12,9 +12,11 @@ namespace FiguryLibrary
             set
             {
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("wartość A musi być dodatnia"); 
-                else
+                    throw new ArgumentOutOfRangeException("wartość A musi być dodatnia");
+                else if (isSpelnionyWarunekTrojkata(value, b, c))
                     a = value;
+                else // nie jest spełniony warunek trójkąta
+                    throw new ArgumentException("nie spełniony warunek trójkąta przy próbie zmiany A"); 
             }
         }
 
@@ -26,9 +28,11 @@ namespace FiguryLibrary
 
             {
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("wartość B musi być dodatnia");
-                else
+                throw new ArgumentOutOfRangeException("wartość B musi być dodatnia");
+                else if (isSpelnionyWarunekTrojkata(a, value, c))
                     b = value;
+                else // nie jest spełniony warunek trójkąta
+                    throw new ArgumentException("nie spełniony warunek trójkąta przy próbie zmiany B");
             }
         }
    private double c;  // thos.c   
@@ -41,11 +45,24 @@ namespace FiguryLibrary
             {
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException("wartość C musi być dodatnia");
-                else
+                else if (isSpelnionyWarunekTrojkata(a, b, value))
                     c = value;
+                else // nie jest spełniony warunek trójkąta
+                    throw new ArgumentException("nie spełniony warunek trójkąta przy próbie zmiany C");
             }
         }
 
+        private bool isSpelnionyWarunekTrojkata(double a, double b, double c)
+        {
+            if (a + b <= c || a + c <= b || b + c <= a)
+            {
+                return false;
+            }
+            else
+            {
+                return true; 
+            }
+        }
 
 
         // drugi krok opisanie procesu budowy obiektu (konstruktory)
@@ -57,19 +74,24 @@ namespace FiguryLibrary
 
         public Trojkat(double a, double b, double c)
         {
-            if (a + b <= c || a + c <= a || b + c <= a)
-            {
-                throw new ArgumentException("niespełniony warunek trójkąta"); 
+            if (a <= 0 || b <= 0 || c <= 0)
+                throw new  ArgumentOutOfRangeException("boki muszą być dodatnie");
 
-            }
-            this.A = a;
-            this.B = b;
-            this.C = c;
+            if (!isSpelnionyWarunekTrojkata(a, b, c))
+                throw new ArgumentException("nie spełniony warunek trójkąta");
+
+            this.a = a;
+            this.b = b;
+            this.c = c;
         }
+
+        // tekstowa prezentacja obiektu 
         public override string ToString()
         {
             return $"Trójkąt(a: {a}, b: {b}, c: {c})";
         }
+
+        // właściwości i metody
 
         public double GetObwod()
         {
@@ -79,7 +101,7 @@ namespace FiguryLibrary
 
         public double Obwod => a + b + c;
 
-        public double GetPole()
+        public double GetPole()  // Java Style 
         {
             var p = 0.5 * GetObwod(); 
             var s = Math.Sqrt(p * (p-a) *(p-b) * (p-c) );

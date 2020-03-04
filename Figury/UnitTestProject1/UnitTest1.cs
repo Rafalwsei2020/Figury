@@ -62,7 +62,7 @@ namespace UnitTestProject1
         }
 
         [DataTestMethod]
-        [DataRow(1, 1, 1, 1)]
+        [DataRow(1, 1, 1, 3)]
         [DataRow(3, 4, 5, 12)]
         public void PropertyOdwod_Poprawnie(double a, double b, double c, double wynik)
         {
@@ -73,20 +73,7 @@ namespace UnitTestProject1
             Assert.AreEqual(wynik, t.Obwod);
         }
 
-        [DataTestMethod]
-        [DataRow(1, 1, 1)]
-
-        public void PropertyPole_Poprawnie(double a, double b, double c, double wynik)
-
-        {
-            //ACT
-            var t = new Trojkat(a, b, c);
-
-            //Assert
-
-            Assert.AreEqual(wynik, t.Pole); 
-        }
-
+        
 
 
 
